@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const exphbr = require('express-handlebars')
+const generatePassword = require('./generator_password')
 const port = 3000
 
 // setting template engine
@@ -17,8 +18,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  console.log('req.body', req.body)
-  res.render('index')
+  const password = generatePassword(req.body)
+  res.render('index',{password})
 })
 
 // starts the express server and listening for connections.
