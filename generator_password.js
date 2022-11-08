@@ -37,6 +37,10 @@ function generatorPassword(options) {
   collection = collection.filter(character => {
     return !options.excludeCharacters.includes(character)
   })
+  // return error notice if collection is empty
+  if (collection.length === 0){
+    return 'there is no valid character in your selection'
+  }
 
   // start generating password
   let password = ''

@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const exphbr = require('express-handlebars')
 const generatePassword = require('./generator_password')
+const checkRepeatWord = require('./checkRepeat')
 const port = 3000
 
 // setting template engine
@@ -18,8 +19,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  const password = generatePassword(req.body)
-  res.render('index',{password})
+  const options = req.body
+  const password = generatePassword(options)
+  const excludeDuplicates = checkRepeatWord(options)
+  res.render('index', { password, options, excludeDuplicates })
 })
 
 // starts the express server and listening for connections.
